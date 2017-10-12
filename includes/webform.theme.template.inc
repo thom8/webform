@@ -98,6 +98,14 @@ function template_preprocess_webform_help(array &$variables) {
  *     Properties used: #action, #method, #attributes, #webform_children.
  */
 function template_preprocess_webform(array &$variables) {
+  /** @var \Drupal\webform\Entity\Webform $webform */
+  $webform = $variables['element']['#webform'];
+
+  // Add custom attributes.
+  if (is_array($elements = $webform->getElementsDecoded())) {
+    $variables['element']['#attributes'] += $elements['#attributes'];
+  }
+
   template_preprocess_form($variables);
 }
 
